@@ -33,7 +33,7 @@ var clients = [
 		"client_id": "oauth-client-1",
 		"client_secret": "oauth-client-secret-1",
 		"redirect_uris": ["http://localhost:9000/callback"],
-		"scope": "foo bar",
+		"scope": "foo bar read write delete",
 		"logo_uri": "https://images.manning.com/720/960/resize/book/e/14336f9-6493-46dc-938c-11a34c9d20ac/Richer-OAuth2-HI.png",
 		"client_name": "OAuth in Action Exercise Client"
 	},
@@ -381,7 +381,7 @@ app.post("/token", function(req, res){
 				var token_response = { access_token: access_token, token_type: 'Bearer', scope: cscope };
 
 				res.status(200).json(token_response);
-				console.log('Issued tokens for code %s', req.body.code);
+				console.log('Issued tokens for code %s with scope %s', req.body.code, cscope);
 				
 				return;
 			} else {
@@ -454,7 +454,7 @@ app.post("/token", function(req, res){
 		}
 
 		var scope = req.body.scope;
-
+		console.log('scope %s', scope);
 		var token_response = generateTokens(req, res, clientId, user, scope);
 		
 		res.status(200).json(token_response);		
